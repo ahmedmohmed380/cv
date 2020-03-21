@@ -58,7 +58,13 @@ if($_SERVER['REQUEST_METHOD']  == 'POST') {
         if(empty($error_msg)) {
         	// Insert Date in Database
         	if( insert_post($datetime, $title, $content, $author, $excerpt, $img_name, $category, $tags) ) {
-        		echo "Success";
+
+        		if(! empty($img_name)) {
+        			$new_path = "uploads/posts/".$img_name;
+        			move_uploaded_file( $img_tmp_name, $new_path);
+        		}
+                             		echo "Success";
+
         	}
         }
 	}
