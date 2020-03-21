@@ -9,6 +9,8 @@ function get_categories() {
     }
     catch(Exception $e) {
         echo  "Error: " .$e->getMessage();
+                return array();
+
     }
 }
 
@@ -32,6 +34,22 @@ function insert_post($datetime, $title, $content, $author,  $excerpt, $image, $c
        echo "Error: ". $e->getMessage();
        return false;
    }
+}
+
+
+
+
+function get_posts() {
+    include "connect.php";
+    $sql = "select * from posts";
+    try {
+        $result = $con->query($sql);
+        return $result;
+    }
+    catch(Exception $e) {
+        echo  "Error: " .$e->getMessage();
+        return array();
+    }
 }
  ?>
 

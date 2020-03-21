@@ -10,7 +10,10 @@
    <?php include "inc/sidebar.php"; ?>
     </div>
   <div class="col-sm">
-    This is the index
+
+    <div class="posts">
+
+
     </div>
   </div>
 </div>
