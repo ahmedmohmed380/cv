@@ -74,7 +74,8 @@ $number = 0;
 
       <td class="action-links" style="width: 130px;">
       	<a class="btn btn-primary btn-sm" href="">Edit</a>
-      	<form action="deletepost.php" method="" style="display: initial;">
+      	<form onsubmit="return confirm('Are You Sure?');" action="deletepost.php" method="POST" style="display: initial;">
+      		<input type="hidden" name="id" value="<?php echo $post['id']; ?>">
       		<input class="btn btn-danger btn-sm" type="submit" value="Delete" name="deletepost">
       	</form>
       </td>

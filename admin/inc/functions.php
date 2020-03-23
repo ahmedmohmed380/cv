@@ -51,6 +51,46 @@ function get_posts() {
         return array();
     }
 }
+
+
+
+
+function delete($table, $id) {
+  include "connect.php";
+  $sql = "DELETE FROM $table WHERE id = ? ";
+  try{
+    $result = $con->prepare($sql);
+    $result->bindValue(1, $id, PDO::PARAM_INT);
+
+    return $result->execute();
+  }
+  catch(Exception $e) {
+    echo "Error: " . $e->getMessage();
+    return false;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function redirect($location) {
+      header("Location: $location");
+}
+
  ?>
 
 
