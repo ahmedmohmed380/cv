@@ -5,6 +5,7 @@
 
 
 <?php 
+$name = "";
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -31,7 +32,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
     }
   }
-}
+} 
+
+  
+
 ?>
 
 
@@ -69,11 +73,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="row">
         <div class="col-sm-10">
            <div class="form-group">
-      <input type="text" name="name" class="form-control" placeholder="Category Name" autocomplete="off" required>
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+      <input value="<?php echo $name; ?>" type="text" name="name" class="form-control" placeholder="Category Name" autocomplete="off" required>
     </div> 
         </div>
         <div class="col-sm">
+          <?php if(isset($_GET['id'])) {
+            echo '<input value="Update Category" type="submit" name="updatecategory" class="btn btn-primary">';
+          }else { ?>
       <input value="Add Category" type="submit" name="addcategory" class="btn btn-primary">
+    <?php } ?>
         </div>
       </div>
     </form>
@@ -117,7 +126,7 @@ $number = 0;
       	
 
       <td class="action-links" style="width: 130px;">
-      	<a class="btn btn-primary btn-sm" href="post.php?id=<?php echo $post['id']; ?>">Edit</a>
+      	<a class="btn btn-primary btn-sm" href="categories.php?id=<?php echo $category['id']; ?>">Edit</a>
       	<form onsubmit="return confirm('Are You Sure?');" action="deletecategory.php" method="POST" style="display: initial;">
       		<input type="hidden" name="id" value="<?php echo $category['id']; ?>">
       		<input class="btn btn-danger btn-sm" type="submit" value="Delete" name="deletecategory">

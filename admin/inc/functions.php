@@ -1,11 +1,23 @@
 <?php
 
-function get_categories() {
+function get_categories($id = "") {
     include "connect.php";
-    $sql = "select * from categories";
+    $sql = "";
+   if(empty($id)){
+     $sql = "SELECT * FROM categories";
+   }else {
+     $sql = "SELECT * FROM categories WHERE id = ?";
+   }
     try {
+      if(empty($id)){
         $result = $con->query($sql);
         return $result;
+      }else {
+        $result = $con->prepare($sql);
+        $result->bindValue(1,$id,PDO::PARAM_INT);
+        $result->execute();
+        return $result->fetch(PDO::FETCH_ASSOC);
+      }
     }
     catch(Exception $e) {
         echo  "Error: " .$e->getMessage();
@@ -29,6 +41,8 @@ $sql = "INSERT INTO categories (datetime, name, creater_name) VALUES (?,?,?)";
        return false;
    }
 }
+
+
 
 
 
