@@ -12,6 +12,31 @@
    <?php include "inc/sidebar.php"; ?>
     </div>
   <div class="col-sm">
+    <div class="posts">
+
+
+      <?php 
+           if( ! session_id() ) {
+             session_start();
+          }
+         if( isset($_SESSION['success']) && ! empty($_SESSION['success'])) {
+            echo "<div class='alert alert-success'>";
+              echo $_SESSION['success'];
+                echo "</div>";
+                $_SESSION['success'] = "";
+                  }
+                    if( isset($_SESSION['error']) && ! empty($_SESSION['error'])) {
+                          echo "<div class='alert alert-danger'>";
+                           echo $_SESSION['error'];
+                             echo "</div>";
+                             $_SESSION['error'] = "";
+                        
+      
+                      }
+      ?>
+
+
+
   	<h4>Posts</h4>
 <div class="table-resposive">
     <table class="table table-hover table-dark">
@@ -73,7 +98,7 @@ $number = 0;
 
 
       <td class="action-links" style="width: 130px;">
-      	<a class="btn btn-primary btn-sm" href="">Edit</a>
+      	<a class="btn btn-primary btn-sm" href="post.php?id=<?php echo $post['id']; ?>">Edit</a>
       	<form onsubmit="return confirm('Are You Sure?');" action="deletepost.php" method="POST" style="display: initial;">
       		<input type="hidden" name="id" value="<?php echo $post['id']; ?>">
       		<input class="btn btn-danger btn-sm" type="submit" value="Delete" name="deletepost">
@@ -91,7 +116,7 @@ $number = 0;
 <a class="btn btn-info" style="float: right;" href="post.php">Add New Post</a>
 </div>
 </div>
-
+</div>
   </div>
 </div>
 

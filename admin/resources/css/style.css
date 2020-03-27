@@ -75,3 +75,23 @@ body {
 	padding: 0;
 	display: none;
 }
+
+
+
+.posts h4,
+.post h4,
+.categories h4 {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+
+.posts .alert,
+.categories .alert {
+	margin-top: 10px;
+	display: inline-block;
+}
+.post form input[name='updatepost'],
+.post form input[name='addpost'] {
+	margin-bottom: 10px;
+}
