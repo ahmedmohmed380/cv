@@ -160,6 +160,91 @@ function delete($table, $id) {
 
 
 
+//insert admin
+
+
+function insert_admin($datetime,$username,$email,$password,$role_type,$created_by,$img_name) {
+   $fields = array($datetime,$username,$email,$password,$role_type,$created_by,$img_name);
+   include "connect.php";
+   $sql = "INSERT INTO admins (datetime, username, email, password, roletype, created_by, image) VALUES
+(?,?,?,?,?,?,?) ";
+
+   try{
+       $result = $con->prepare($sql);
+
+       for($i = 1; $i <= 7; $i++){
+           $result->bindValue($i, $fields[$i - 1], PDO::PARAM_STR);
+       }
+       return $result->execute();
+   }catch(Exception $e) {
+       echo "Error: ". $e->getMessage();
+       return false;
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function get_admins($id = "") {
+    include "connect.php";
+    $sql = "";
+    if(empty($id)){
+    $sql = "SELECT * FROM admins ORDER BY datetime ASC";
+    }else {
+     $sql = "SELECT * FROM admins WHERE id = ?";
+    }
+
+
+    try {
+      if(! empty($id)) {
+      $result = $con->prepare($sql);
+      $result->bindValue(1, $id, PDO::PARAM_INT);
+      $result->execute();
+
+      return $result->fetch(PDO::FETCH_ASSOC);
+      }else {
+        $result = $con->query($sql);
+        return $result;
+      }
+        
+    }
+    catch(Exception $e) {
+        echo  "Error: " .$e->getMessage();
+        return array();
+    }
+}
+
+
+
+
+function is_admin($email) {
+
+  include "connect.php";
+  $sql = "SELECT id, email, username, password FROM admins WHERE email = ? ";
+  try {
+
+    $result = $con->prepare($sql);
+    $result->bindValue(1, $email, PDO::PARAM_STR);
+    $result->execute();
+    return $result->fetch(PDO::FETCH_ASSOC);
+  }
+  catch(Exception $e) {
+    echo "Error: ". $e->getMessage();
+  }
+}
+
+
+
+
 
 
 

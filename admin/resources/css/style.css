@@ -2,11 +2,16 @@
 body {
 	padding-top: 40px;
 }
+body.login-style {
+	padding: 0;
+}
 .col-sm-2 {
 	padding-left: 0;
 }
 
-
+h6 {
+	margin: 0
+}
 /* Navbar Style */
 .navbar {
 	padding: 0;
@@ -80,18 +85,92 @@ body {
 
 .posts h4,
 .post h4,
-.categories h4 {
+.categories h4,
+.admin,
+.admins {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
 
 
 .posts .alert,
-.categories .alert {
+.categories .alert,
+.admins .alert {
 	margin-top: 10px;
 	display: inline-block;
 }
 .post form input[name='updatepost'],
 .post form input[name='addpost'] {
 	margin-bottom: 10px;
+}
+
+
+
+/* Login Style */
+
+.login {
+	background: #1B1D32;
+	width: 100%;
+	height: 100vh;
+}
+.login .login-form {
+	width: 350px;
+	margin: 0 auto;
+	padding-top: 160px;
+}
+
+.login .login-form h6 {
+	padding: 25px;
+	background: #1E2137;
+	color: grey;
+}
+
+
+.login .login-form form {
+	padding:  20px 25px;
+	background: #24273E;
+}
+
+.login .login-form form input[name='email'],
+.login .login-form form input[name='password'] {
+	background: #24273E;
+	border: none;
+	border-bottom: 1px solid grey;
+	border-radius: 0;
+	padding-left: 30px;
+    color: #ffffffff;
+
+}
+
+
+.login .login-form form input[name='email']:focus,
+.login .login-form form input[name='password']:focus {
+
+    box-shadow: none;
+}
+.login .login-form form div {
+	position: relative;
+}
+
+
+.login .login-form form i {
+	position: absolute;
+	top: 12px;
+	left: 5px;
+	color: #6C7573;
+}
+
+.login .login-form form input[name='login'] {
+	color: #fff;
+	background: #FC445F;
+	border-radius: 2px;
+	box-shadow: 0 1px 2px #FC445F;;
+}
+
+.alert-default {
+	color: #ffffff;
+}
+
+.iogin .login-form a.forgot-password {
+	text-decoration: none;
 }
