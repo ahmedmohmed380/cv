@@ -244,6 +244,21 @@ function is_admin($email) {
 
 
 
+function update_reset_password_code($email) {
+
+  include "connect.php";
+  $newcode = rand(10000, 99999);
+  $sql = "UPDATE admins SET reset_password_code = $newcode WHERE email = ? ";
+  try {
+    $result = $con->prepare($sql);
+    $result->bindValue(1, $email, PDO::PARAM_STR);
+    return $result->execute();
+  }catch(Exception $e) {
+    echo "Error: " .$e->getMessage();
+    return false;
+  }
+
+}
 
 
 
