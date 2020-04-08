@@ -323,7 +323,21 @@ function insert_comment($datetime, $username, $email, $comment, $post_id) {
 }
 
 
+// Settings Function
 
+
+function get_settings() {
+  include "connect.php";
+  $sql = "SELECT * FROM settings";
+  try {
+    $result = $con->query($sql);
+    return $result;
+  }
+  catch(Exception $e) {
+    echo "Error: ".$e->getMessage();
+    return array();
+  }
+}
 
 
 

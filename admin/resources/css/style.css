@@ -187,3 +187,6 @@ h6 {
 	margin-bottom: 5px;
 	border-radius: 2px;
 }
+.settings form img.logo {
+	border-radius: 50%;
+}
