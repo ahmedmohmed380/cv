@@ -22,52 +22,25 @@ if(! session_id()) {
 
 
 if($_SERVER['REQUEST_METHOD']  === 'POST') {
-	if(isset($_POST['addpost'])) {
+	if(isset($_POST['addcomment'])) {
 
 
-		$title = filter_input(INPUT_POST, 'title' , FILTER_SANITIZE_STRING);
-		$content = filter_input(INPUT_POST, 'content' , FILTER_SANITIZE_STRING);
-		$category = filter_input(INPUT_POST, 'category' , FILTER_SANITIZE_STRING);
-		$excerpt = filter_input(INPUT_POST, 'excerpt' , FILTER_SANITIZE_STRING);
-		$tags = filter_input(INPUT_POST, 'tags' , FILTER_SANITIZE_STRING);
+		$username = filter_input(INPUT_POST, 'username' , FILTER_SANITIZE_STRING);
+		$email = filter_input(INPUT_POST, 'email' , FILTER_SANITIZE_STRING);
+		$comment_comment = filter_input(INPUT_POST, 'comment' , FILTER_SANITIZE_STRING);
+		$post_id = filter_input(INPUT_POST, 'post_id' , FILTER_SANITIZE_STRING);
 
         $author = "mohammed"; //Temprary Author until creating admins
 
         date_default_timezone_set("Asia/Riyadh");
         $datetime = date( 'M-D-Y h:m', time());
 
-           
-		$image = $_FILES['image'];
-
-
-		$img_name = $image['name'];
-		$img_tmp_name = $image['tmp_name'];
-		$img_size = $image['size'];
-
+       
 
 		$error_msg = "";
-		if(strlen($title) < 10 || strlen($title) > 200) {
-			$error_msg = "Title must be between 10 and 200";
-		}else if(strlen($content) < 100 || strlen($content) > 100000) {
-			$error_msg = "Content must be between 100 and 100000";
-		}else if(! empty($excerpt)){
-			If(strlen($excerpt) < 10 || strlen($excerpt) > 1000) {
-			$error_msg = "Excerpt must be between 10 and 1000";
-			}
-		}else {
-
-			if(! empty($img_name)) {
-				$img_extension = strtolower(explode('.', $img_name)[1]);
-
-				$allowed_extensions = array('jpg' , 'png' , 'jpeg');
-
-				If(! in_array($img_extension, $allowed_extensions)) {
-					$error_msg = "Allowed Extensions are jpg, png and jpeg ";
-				}else if ( $img_size > 9000000) {
-					$error_msg = "Image size must be less than 9M";
-				}
-			}
-		}
+		if(strlen($comment) < 10 || strlen($comment) > 500) {
+			$error_msg = "comment must be between 10 and 500";
+		}else 
 
 
         if(empty($error_msg)) {
@@ -82,13 +55,10 @@ if($_SERVER['REQUEST_METHOD']  === 'POST') {
 
 
         	// Insert Date in Database
-        	if( insert_post($datetime, $title, $content, $author, $excerpt, $img_name, $category, $tags) ) {
-        		if(! empty($img_name)) {
-        			$new_path = "uploads/posts/".$img_name;
-        			move_uploaded_file( $img_tmp_name, $new_path);
-        		}
-        		$_SESSION['success'] = "Post has added Successfully";
-               	redirect("posts.php");
+        	if( insert_comment($datetime, $username, $email, $comment, $post_id) ) {
+        		
+        		$_SESSION['success'] = "comments has added Successfully";
+               	redirect("comments.php");
         	}else {
         		echo "Unable to Add";
         	}
@@ -209,7 +179,7 @@ $error_msg = "";
 				<form action="comment.php" method="POST">
 					<div class="form-group">
 						<imput type="hidden" name="id" value="<?php echo $id; ?>">
-						<input readonly value="<?php echo $username; ?>" class="form-control" type="text" name="title">
+						<input readonly value="<?php echo $username; ?>" class="form-control" type="text" name="username">
 					</div>
 					<div class="form-group">
 						<input readonly value="<?php echo $email; ?>" class="form-control" type="email" name="email">
@@ -219,7 +189,7 @@ $error_msg = "";
 							<p class="error content-error">Comment the must be between 5 and 10000 characters</p>
 					</div>
 					<div class="form-group">
-						<select class="form-control" name="category">
+						<select class="form-control" name="post_id">
 							<?php 
 							foreach (get_posts() as $post) {
                               echo  '<option value="$category["id"]" ';

@@ -174,3 +174,16 @@ h6 {
 .iogin .login-form a.forgot-password {
 	text-decoration: none;
 }
+
+.settings h4 {
+	margin: 20px;
+	margin-bottom: 20px;
+}
+.settings form {
+	margin-left: 40px;
+}
+.settings form input[type='submit'] {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	border-radius: 2px;
+}

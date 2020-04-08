@@ -265,6 +265,73 @@ function update_reset_password_code($email) {
 
 
 
+//Comment function 
+
+function get_comments($id = "") {
+    include "connect.php";
+    $sql = "";
+    if(empty($id)){
+    $sql = "SELECT * FROM commentss ORDER BY datetime ASC";
+    }else {
+     $sql = "SELECT * FROM commentss WHERE id = ?";
+    }
+
+
+    try {
+      if(! empty($id)) {
+      $result = $con->prepare($sql);
+      $result->bindValue(1, $id, PDO::PARAM_INT);
+      $result->execute();
+
+      return $result->fetch(PDO::FETCH_ASSOC);
+      }else {
+        $result = $con->query($sql);
+        return $result;
+      }
+        
+    }
+    catch(Exception $e) {
+        echo  "Error: " .$e->getMessage();
+        return array();
+    }
+}
+
+
+
+
+
+
+
+function insert_comment($datetime, $username, $email, $comment, $post_id) {
+  $fields = array($datetime, $username, $email, $comment);
+   include "connect.php";
+   $sql = "INSERT INTO commentss (datetime, commenter_name, commenter_email, comment, post_id) VALUES
+(?,?,?,?,?) ";
+
+   try{
+       $result = $con->prepare($sql);
+
+       for($i = 1; $i <= 4; $i++){
+           $result->bindValue($i, $fields[$i - 1], PDO::PARAM_STR);
+       }
+       $result->bindValue(5, $post_id, PDO::PARAM_INT);
+       return $result->execute();
+   }catch(Exception $e) {
+       echo "Error: ". $e->getMessage();
+       return false;
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
